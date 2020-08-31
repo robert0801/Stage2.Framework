@@ -114,6 +114,7 @@ public class Calculator {
                 ", committedUsage='" + committedUsage + '\'' +
                 '}';
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -134,8 +135,6 @@ public class Calculator {
     public int hashCode() {
         return Objects.hash(numberOfInstance, operatingSystem, machineClass, typeMachineType, numberOfGPU, typeGPUType, localSSD, datacenterLocation, committedUsage);
     }
-
-
 
 
 }

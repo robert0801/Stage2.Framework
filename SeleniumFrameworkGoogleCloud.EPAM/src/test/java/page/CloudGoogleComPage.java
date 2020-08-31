@@ -7,14 +7,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CloudGoogleComPage extends AbstractForCloudGoogle{
+public class CloudGoogleComPage extends AbstractForCloudGoogle {
 
 
     public CloudGoogleComPage(WebDriver driver) {
         super(driver);
     }
 
-    public PageWithSettings getToStartPage(){
+    public PageWithSettings getToStartPage() {
         driver.get("https://cloud.google.com/");
         WebElement searchLine = driver.findElement(By.xpath("//input[@type='text']"));
         searchLine.sendKeys("Google Cloud Platform Pricing Calculator");

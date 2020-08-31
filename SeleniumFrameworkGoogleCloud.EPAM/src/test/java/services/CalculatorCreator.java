@@ -14,7 +14,7 @@ public class CalculatorCreator {
     private static final String DATACENTER_LOCATION = "datacenterLocation";
     private static final String COMMITTED_USAGE = "committedUsage";
 
-    public static Calculator creatCalculatorWithSomeProperty(){
+    public static Calculator createCalculatorWithSomeProperty() {
         return new Calculator(TestDataReader.getTestData(NUMBER_OF_INSTANCE),
                 TestDataReader.getTestData(OPERATING_SYSTEM),
                 TestDataReader.getTestData(MACHINE_CLASS),
@@ -25,6 +25,4 @@ public class CalculatorCreator {
                 TestDataReader.getTestData(DATACENTER_LOCATION),
                 TestDataReader.getTestData(COMMITTED_USAGE));
     }
-
-
 }

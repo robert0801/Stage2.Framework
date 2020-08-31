@@ -11,7 +11,7 @@ import settingscalc.Calculator;
 public class PriceComparisonTest extends CommonConditions {
     @Test
     public void openPage() {
-        Calculator testCalculator = CalculatorCreator.creatCalculatorWithSomeProperty();
+        Calculator testCalculator = CalculatorCreator.createCalculatorWithSomeProperty();
         PageWithSettings cloudPage = new CloudGoogleComPage(driver)
                 .getToStartPage()
                 .checkNumberOfInstances(testCalculator)
@@ -37,11 +37,12 @@ public class PriceComparisonTest extends CommonConditions {
                 .clickToOpenMail()
                 .getPriceOnGenerateMailPage();
 
-        Assert.assertEquals(PageWithSettings.priceOnCalculatorPage, GenerateMailPage.priceOnGenerateMailPage, "Price on equals");
     }
 
+    @Test(dependsOnMethods = "openPage")
     public void checkCost() {
-        Assert.assertEquals(PageWithSettings.priceOnCalculatorPage, GenerateMailPage.priceOnGenerateMailPage, "Price on equals");
+        Assert.assertEquals(PageWithSettings.priceOnCalculatorPage, GenerateMailPage.priceOnGenerateMailPage,
+                "Price in sent mail doesn't match with price on the generate calculator page.");
     }
 }
 

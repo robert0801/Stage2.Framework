@@ -7,7 +7,7 @@ abstract public class AbstractForCloudGoogle {
 
     protected WebDriver driver;
 
-    public AbstractForCloudGoogle(WebDriver driver){
+    public AbstractForCloudGoogle(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }

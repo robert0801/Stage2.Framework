@@ -18,20 +18,17 @@ public class CommonConditions {
     protected WebDriver driver;
 
     @BeforeTest()
-    public void setUp()
-    {
+    public void setUp() {
         driver = DriverSingleton.getDriver();
         driver.manage().timeouts().implicitlyWait(VALUE_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(VALUE_TIMEOUT, TimeUnit.SECONDS);
         PageFactory.initElements(driver, this);
         Dimension dimension = new Dimension(1920, 1000);
         driver.manage().window().setSize(dimension);
-
     }
 
     @AfterTest(alwaysRun = true)
-    public void stopBrowser()
-    {
+    public void stopBrowser() {
         DriverSingleton.closeDriver();
     }
 }

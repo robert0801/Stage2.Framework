@@ -11,29 +11,32 @@ public class DriverSingleton {
 
     private static WebDriver driver;
 
-    private DriverSingleton(){}
+    private DriverSingleton() {
+    }
 
-    public static WebDriver getDriver(){
-        if (null == driver){
-            switch (System.getProperty("browser")){
+    public static WebDriver getDriver() {
+        if (null == driver) {
+            switch (System.getProperty("browser")) {
                 case "firefox": {
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
                     firefoxOptions.addArguments("--start-maximized");
                     WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver(firefoxOptions);
+                    break;
                 }
                 default: {
                     ChromeOptions chromeOptions = new ChromeOptions();
                     chromeOptions.addArguments("--start-maximized");
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver(chromeOptions);
+                    break;
                 }
             }
         }
         return driver;
     }
 
-    public static void closeDriver(){
+    public static void closeDriver() {
         driver.quit();
         driver = null;
     }

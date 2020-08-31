@@ -1,15 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="All test" verbose="1" >
-    <test name="Open Start Page"   >
+<suite name="All test" verbose="1">
+    <test name="Open Start Page">
         <classes>
-            <class name="test.OpenRightPageTest" />
+            <class name="test.OpenRightPageTest"/>
         </classes>
     </test>
 
-    <test name="Price Comparison"   >
+    <test name="Price Comparison">
         <classes>
-            <class name="test.PriceComparisonTest" />
+            <class name="test.PriceComparisonTest"/>
         </classes>
     </test>
 </suite>
