@@ -23,13 +23,13 @@ public class PriceComparisonTest extends CommonConditions {
                 .checkDatacenterLocation(testCalculator)
                 .checkCommittedUsage(testCalculator)
                 .addToEstimate()
-                .emailEstimate()
                 .createNewTab();
 
         GenerateMailPage mailPage = new GenerateMailPage(driver)
                 .getToMailPage()
                 .copyMail();
         cloudPage
+                .emailEstimate()
                 .checkInputMail()
                 .checkSendEmail()
                 .getPriceInCalculator();

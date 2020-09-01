@@ -2,8 +2,10 @@ package page;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -58,7 +60,6 @@ public class PageWithSettings extends AbstractForCloudGoogle {
     }
 
     public PageWithSettings checkNumberOfInstances(Calculator calculator) {
-
         driver.switchTo().frame(0);
         driver.switchTo().frame("myFrame");
         waitForVisibility(numberOfInstances);
@@ -117,11 +118,11 @@ public class PageWithSettings extends AbstractForCloudGoogle {
     }
 
     public PageWithSettings emailEstimate() {
+        driver.switchTo().frame(0);
+        driver.switchTo().frame("myFrame");
         click(buttonEmailEstimate);
-        waitForVisibility(buttonInputMail);
         logger.info("Create calculator on page with some settings");
         return this;
-
     }
 
     public PageWithSettings createNewTab() {
@@ -132,12 +133,6 @@ public class PageWithSettings extends AbstractForCloudGoogle {
     }
 
     public PageWithSettings checkInputMail() {
-        driver.switchTo().frame(0);
-        driver.switchTo().frame("myFrame");
-        if (!buttonInputMail.isDisplayed()){
-            new Actions(driver).moveByOffset(100, 100).click().build().perform();
-            click(buttonEmailEstimate);
-        }
         waitForVisibility(buttonInputMail);
         buttonInputMail.sendKeys(GenerateMailPage.generateMail);
         return this;
@@ -155,31 +150,10 @@ public class PageWithSettings extends AbstractForCloudGoogle {
         driver.switchTo().frame("myFrame");
         WebElement priceCalculator = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//md-card-content[@id='resultBlock']//div/b[contains(text(),Total)]")));
-
         String s = priceCalculator
                 .getText()
                 .replace("1 month", "")
                 .replaceAll("[^0-9.]", "");
-
         priceOnCalculatorPage = Double.parseDouble(s);
     }
-
-
-    public WebElement waitForVisibility(WebElement element) {
-        new WebDriverWait(driver, 20)
-                .until(ExpectedConditions.visibilityOf(element));
-        return element;
-    }
-
-    public void click(WebElement element) {
-        waitForVisibility(element);
-        element.sendKeys(Keys.ENTER);
-    }
-
-    public void clickByCheckOption(String listOfOption, String option) {
-        WebElement element = new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(listOfOption, option))));
-        element.sendKeys(Keys.ENTER);
-    }
-
 }
