@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.interactions.Actions;
 import settingscalc.Calculator;
 import org.openqa.selenium.*;
 import java.util.ArrayList;
@@ -117,6 +118,10 @@ public class PageWithSettings{
     public PageWithSettings checkInputMail(){
         Selenide.switchTo().frame(0);
         Selenide.switchTo().frame("myFrame");
+        if (!$(buttonInputMail).is(disabled)){
+            new Actions(WebDriverRunner.getWebDriver()).moveByOffset(100, 100).click().build().perform();
+            click(buttonEmailEstimate);
+        }
         $(buttonInputMail).waitUntil(visible, 10000).setValue(GenerateMailPage.generateMail);
         return this;
     }
