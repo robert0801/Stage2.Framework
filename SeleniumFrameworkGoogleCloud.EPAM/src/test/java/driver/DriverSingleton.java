@@ -25,10 +25,9 @@ public class DriverSingleton {
                     break;
                 }
                 default: {
-                    ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.addArguments("--start-maximized");
                     WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver(chromeOptions);
+                    driver = new ChromeDriver();
+                    driver.manage().window().maximize();
                     break;
                 }
             }

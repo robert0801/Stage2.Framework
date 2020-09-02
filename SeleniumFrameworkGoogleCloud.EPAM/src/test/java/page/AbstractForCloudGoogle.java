@@ -18,7 +18,7 @@ abstract public class AbstractForCloudGoogle {
     }
 
     protected WebElement waitForVisibility(WebElement element) {
-        new WebDriverWait(driver, 20)
+        new WebDriverWait(driver, 30)
                 .until(ExpectedConditions.visibilityOf(element));
         return element;
     }
@@ -28,7 +28,8 @@ abstract public class AbstractForCloudGoogle {
         element.sendKeys(Keys.ENTER);
     }
 
-    protected void clickByCheckOption(String listOfOption, String option) {
+    protected void clickByCheckOption(WebElement listWithOptions,String listOfOption, String option) {
+        click(listWithOptions);
         WebElement element = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(listOfOption, option))));
         element.sendKeys(Keys.ENTER);

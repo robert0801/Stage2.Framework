@@ -13,7 +13,7 @@ import settingscalc.Calculator;
 
 import java.util.ArrayList;
 
-public class PageWithSettings extends AbstractForCloudGoogle {
+public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
 
     public static Double priceOnCalculatorPage;
     static ArrayList<String> tab;
@@ -55,11 +55,11 @@ public class PageWithSettings extends AbstractForCloudGoogle {
     @FindBy(xpath = "//button[@aria-label='Send Email']")
     private WebElement buttonSendEmail;
 
-    public PageWithSettings(WebDriver driver) {
+    public PageWithSettingsOfCalculator(WebDriver driver) {
         super(driver);
     }
 
-    public PageWithSettings checkNumberOfInstances(Calculator calculator) {
+    public PageWithSettingsOfCalculator settingValueNumberOfInstances(Calculator calculator) {
         driver.switchTo().frame(0);
         driver.switchTo().frame("myFrame");
         waitForVisibility(numberOfInstances);
@@ -67,57 +67,49 @@ public class PageWithSettings extends AbstractForCloudGoogle {
         return this;
     }
 
-    public PageWithSettings checkOperatingSystem(Calculator calculator) {
-        click(listOperatingSystem);
-        clickByCheckOption(typeOperatingSystem, calculator.getOperatingSystem());
+    public PageWithSettingsOfCalculator settingValueOperatingSystem(Calculator calculator) {
+        clickByCheckOption(listOperatingSystem, typeOperatingSystem, calculator.getOperatingSystem());
         return this;
     }
 
-    public PageWithSettings checkMachineClass(Calculator calculator) {
-        click(listMachineClass);
-        clickByCheckOption(typeMachineClass, calculator.getMachineClass());
+    public PageWithSettingsOfCalculator settingValueMachineClass(Calculator calculator) {
+        clickByCheckOption(listMachineClass, typeMachineClass, calculator.getMachineClass());
         return this;
     }
 
-    public PageWithSettings checkMachineType(Calculator calculator) {
-        click(listMachineType);
-        clickByCheckOption(typeMachineType, calculator.getTypeMachineType());
+    public PageWithSettingsOfCalculator settingValueMachineType(Calculator calculator) {
+        clickByCheckOption(listMachineType, typeMachineType, calculator.getTypeMachineType());
         return this;
     }
 
-    public PageWithSettings checkAddGPU(Calculator calculator) {
+    public PageWithSettingsOfCalculator settingAddGPU(Calculator calculator) {
         click(addGPU);
-        click(listNumberOfGPU);
-        clickByCheckOption(typeNumberOfGPU, String.valueOf(calculator.getNumberOfGPU()));
-        click(listGPUType);
-        clickByCheckOption(typeGPUType, calculator.getTypeGPUType());
+        clickByCheckOption(listNumberOfGPU, typeNumberOfGPU, String.valueOf(calculator.getNumberOfGPU()));
+        clickByCheckOption(listGPUType, typeGPUType, calculator.getTypeGPUType());
         return this;
     }
 
-    public PageWithSettings checkLocalSSD(Calculator calculator) {
-        click(listLocalSSD);
-        clickByCheckOption(typeLocalSSD, calculator.getLocalSSD());
+    public PageWithSettingsOfCalculator settingValueLocalSSD(Calculator calculator) {
+        clickByCheckOption(listLocalSSD, typeLocalSSD, calculator.getLocalSSD());
         return this;
     }
 
-    public PageWithSettings checkDatacenterLocation(Calculator calculator) {
-        click(listDatacenterLocation);
-        clickByCheckOption(typeDatacenterLocation, calculator.getDatacenterLocation());
+    public PageWithSettingsOfCalculator settingValueDatacenterLocation(Calculator calculator) {
+        clickByCheckOption(listDatacenterLocation, typeDatacenterLocation, calculator.getDatacenterLocation());
         return this;
     }
 
-    public PageWithSettings checkCommittedUsage(Calculator calculator) {
-        click(listCommittedUsage);
-        clickByCheckOption(typeCommittedUsage, String.valueOf(calculator.getCommittedUsage()));
+    public PageWithSettingsOfCalculator settingValueCommittedUsage(Calculator calculator) {
+        clickByCheckOption(listCommittedUsage, typeCommittedUsage, String.valueOf(calculator.getCommittedUsage()));
         return this;
     }
 
-    public PageWithSettings addToEstimate() {
+    public PageWithSettingsOfCalculator clickOnTheButtonAddToEstimate() {
         click(buttonAddToEstimate);
         return this;
     }
 
-    public PageWithSettings emailEstimate() {
+    public PageWithSettingsOfCalculator clickOnButtonEmailEstimate() {
         driver.switchTo().frame(0);
         driver.switchTo().frame("myFrame");
         click(buttonEmailEstimate);
@@ -125,26 +117,26 @@ public class PageWithSettings extends AbstractForCloudGoogle {
         return this;
     }
 
-    public PageWithSettings createNewTab() {
+    public PageWithSettingsOfCalculator createNewTab() {
         ((JavascriptExecutor) driver).executeScript("window.open()");
         tab = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tab.get(1));
         return this;
     }
 
-    public PageWithSettings checkInputMail() {
+    public PageWithSettingsOfCalculator insertGeneratingMailInFieldInputMail() {
         waitForVisibility(buttonInputMail);
         buttonInputMail.sendKeys(GenerateMailPage.generateMail);
         return this;
     }
 
-    public PageWithSettings checkSendEmail() {
+    public PageWithSettingsOfCalculator clickOnTheButtonSendEmail() {
         click(buttonSendEmail);
         logger.info("The settings of calculator was success send on generate email");
         return this;
     }
 
-    public void getPriceInCalculator() {
+    public void getPriceInCalculatorPage() {
         driver.switchTo().window(tab.get(0));
         driver.switchTo().frame(0);
         driver.switchTo().frame("myFrame");

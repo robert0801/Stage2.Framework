@@ -2,7 +2,6 @@ package page;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,14 +40,14 @@ public class GenerateMailPage extends AbstractForCloudGoogle {
         if (checkCopyMail) {
             generateMail = mailAddress.getAttribute("value");
         }
-        driver.switchTo().window(PageWithSettings.tab.get(0));
+        driver.switchTo().window(PageWithSettingsOfCalculator.tab.get(0));
         logger.info("Email is generate succesfully.");
         return this;
 
     }
 
     public GenerateMailPage clickToOpenMail() {
-        driver.switchTo().window(PageWithSettings.tab.get(1));
+        driver.switchTo().window(PageWithSettingsOfCalculator.tab.get(1));
         waitForVisibility(mailPage);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", mailPage);
         mailPage.click();
