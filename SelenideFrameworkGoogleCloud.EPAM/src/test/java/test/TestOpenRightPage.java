@@ -4,15 +4,15 @@ import com.codeborne.selenide.WebDriverRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.CloudGoogleComPage;
-import page.PageWithSettings;
+import page.PageWithSettingsOfCalculator;
 
 public class TestOpenRightPage extends CommonConditions{
     @Test
     public void getToCloudGoogle(){
-        PageWithSettings page = new CloudGoogleComPage()
-                .getToStartPage();
+        PageWithSettingsOfCalculator page = new CloudGoogleComPage()
+                .getToStartPageWithSearchingLine();
         Assert.assertEquals(WebDriverRunner.getWebDriver().getCurrentUrl(), "https://cloud.google.com/products/calculator",
-                "Open no correct page");
+                "Was open incorrect page for generate calculator.");
 
     }
 }

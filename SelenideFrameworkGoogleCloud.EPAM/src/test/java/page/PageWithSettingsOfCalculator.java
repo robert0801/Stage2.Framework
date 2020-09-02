@@ -3,9 +3,6 @@ package page;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.interactions.Actions;
 import settingscalc.Calculator;
 import org.openqa.selenium.*;
 import java.util.ArrayList;
@@ -14,12 +11,10 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
-public class PageWithSettings{
+public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle{
 
     static ArrayList<String> tab;
     public static Double priceOnCalculatorPage;
-
-    private final Logger logger = LogManager.getRootLogger();
 
     private By numberOfInstances = By.xpath("//input[contains(@ng-model,'quantity')]");
     private By listOperatingSystem = By.xpath("//label[text()='Operating System / Software']/../md-select");
@@ -41,120 +36,94 @@ public class PageWithSettings{
     private String typeCommittedUsage = "//md-select-menu[contains(@style, 'transform-origin')]//div[text()='%s']/parent::md-option";
     private By buttonAddToEstimate = By.xpath("//button[@aria-label='Add to Estimate']");
     private By buttonEmailEstimate = By.xpath("//button[@id='email_quote']");
-    private By buttonInputMail = By.xpath("//input[@type='email']");
+    private By fieldForInputGenerateMail = By.xpath("//input[@type='email']");
     private By buttonSendEmail = By.xpath("//button[@aria-label='Send Email']");
 
-    public PageWithSettings checkNumberOfInstances(Calculator calculator){
+    public PageWithSettingsOfCalculator settingValueNumberOfInstances(Calculator calculator){
         Selenide.switchTo().frame(0);
         Selenide.switchTo().frame("myFrame");
         $(numberOfInstances).waitUntil(visible, 10000).setValue(String.valueOf(calculator.getNumberOfInstance()));
         return this;
     }
 
-    public PageWithSettings checkOperatingSystem(Calculator calculator){
-        click(listOperatingSystem);
-        clickByCheckOption(typeOperatingSystem, calculator.getOperatingSystem());
+    public PageWithSettingsOfCalculator settingValueOperatingSystem(Calculator calculator){
+        clickByCheckOption(listOperatingSystem, typeOperatingSystem, calculator.getOperatingSystem());
         return this;
     }
 
-    public PageWithSettings checkMachineClass(Calculator calculator){
-        click(listMachineClass);
-        clickByCheckOption(typeMachineClass, calculator.getMachineClass());
+    public PageWithSettingsOfCalculator settingValueMachineClass(Calculator calculator){
+        clickByCheckOption(listMachineClass, typeMachineClass, calculator.getMachineClass());
         return this;
     }
 
-    public PageWithSettings checkMachineType(Calculator calculator){
-        click(listMachineType);
-        clickByCheckOption(typeMachineType, calculator.getTypeMachineType());
+    public PageWithSettingsOfCalculator settingValueMachineType(Calculator calculator){
+        clickByCheckOption(listMachineType, typeMachineType, calculator.getTypeMachineType());
         return this;
     }
 
-    public PageWithSettings checkAddGPU(Calculator calculator){
+    public PageWithSettingsOfCalculator settingAddGPU(Calculator calculator){
         click(addGPU);
-        click(listNumberOfGPU);
-        clickByCheckOption(typeNumberOfGPU, String.valueOf(calculator.getNumberOfGPU()));
-        click(listGPUType);
-        clickByCheckOption(typeGPUType, calculator.getTypeGPUType());
+        clickByCheckOption(listNumberOfGPU, typeNumberOfGPU, String.valueOf(calculator.getNumberOfGPU()));
+        clickByCheckOption(listGPUType, typeGPUType, calculator.getTypeGPUType());
         return this;
     }
 
-    public PageWithSettings checkLocalSSD(Calculator calculator){
-        click(listLocalSSD);
-        clickByCheckOption(typeLocalSSD, calculator.getLocalSSD());
+    public PageWithSettingsOfCalculator settingValueLocalSSD(Calculator calculator){
+        clickByCheckOption(listLocalSSD, typeLocalSSD, calculator.getLocalSSD());
         return this;
     }
 
-    public PageWithSettings checkDatacenterLocation(Calculator calculator){
-        click(listDatacenterLocation);
-        clickByCheckOption(typeDatacenterLocation, calculator.getDatacenterLocation());
+    public PageWithSettingsOfCalculator settingValueDatacenterLocation(Calculator calculator){
+        clickByCheckOption(listDatacenterLocation, typeDatacenterLocation, calculator.getDatacenterLocation());
         return this;
     }
 
-    public PageWithSettings checkCommittedUsage(Calculator calculator){
-        click(listCommittedUsage);
-        clickByCheckOption(typeCommittedUsage, String.valueOf(calculator.getCommittedUsage()));
+    public PageWithSettingsOfCalculator settingValueCommittedUsage(Calculator calculator){
+        clickByCheckOption(listCommittedUsage, typeCommittedUsage, String.valueOf(calculator.getCommittedUsage()));
         return this;
     }
 
-    public PageWithSettings addToEstimate(){
+    public PageWithSettingsOfCalculator clickOnTheButtonAddToEstimate(){
         click(buttonAddToEstimate);
         return this;
     }
 
-    public PageWithSettings emailEstimate(){
-        click(buttonEmailEstimate);
-        $(buttonInputMail).waitUntil(visible, 10000);
-        logger.info("Create calculator on page with some settings");
+    public PageWithSettingsOfCalculator clickOnButtonEmailEstimate(){
+        Selenide.switchTo().frame(0);
+        Selenide.switchTo().frame("myFrame");
+        $(buttonEmailEstimate).waitUntil(visible, 10000).click();
         return this;
     }
 
-    public PageWithSettings createNewTab(){
+    public PageWithSettingsOfCalculator createNewTab(){
         executeJavaScript("window.open()");
         tab = new ArrayList<>(WebDriverRunner.getWebDriver().getWindowHandles());
         Selenide.switchTo().window(tab.get(1));
         return this;
     }
 
-    public PageWithSettings checkInputMail(){
-        Selenide.switchTo().frame(0);
-        Selenide.switchTo().frame("myFrame");
-        if (!$(buttonInputMail).is(disabled)){
-            new Actions(WebDriverRunner.getWebDriver()).moveByOffset(100, 100).click().build().perform();
-            click(buttonEmailEstimate);
-        }
-        $(buttonInputMail).waitUntil(visible, 10000).setValue(GenerateMailPage.generateMail);
+    public PageWithSettingsOfCalculator insertGeneratingMailInFieldInputMail(){
+        $(fieldForInputGenerateMail).waitUntil(visible, 10000).setValue(GenerateMailPage.generateMail);
         return this;
     }
 
-    public PageWithSettings checkSendEmail(){
+    public PageWithSettingsOfCalculator clickOnTheButtonSendEmail(){
         click(buttonSendEmail);
         logger.info("The settings of calculator was success send on generate email");
         return this;
     }
 
-    public void getPriceInCalculator(){
+    public void getPriceInCalculatorPage(){
         Selenide.switchTo().window(tab.get(0));
         Selenide.switchTo().frame(0);
         Selenide.switchTo().frame("myFrame");
         SelenideElement priceCalculator = $(By.xpath("//md-card-content[@id='resultBlock']//div/b[contains(text(),Total)]"))
                 .waitUntil(visible, 10000);
-
         String s = priceCalculator
                 .getText()
                 .replace("1 month","")
                 .replaceAll("[^0-9.]", "");
         priceOnCalculatorPage = Double.parseDouble(s);
         System.out.println(priceOnCalculatorPage);
-    }
-
-
-
-
-    public void click(By element){
-        $(element).waitUntil(visible, 10000).pressEnter();
-    }
-
-    public void clickByCheckOption(String listOfOption, String option){
-        $(By.xpath(String.format(listOfOption, option))).waitUntil(visible, 10000).pressEnter();
     }
 }

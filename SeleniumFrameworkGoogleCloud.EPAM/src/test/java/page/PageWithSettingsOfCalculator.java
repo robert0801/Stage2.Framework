@@ -51,7 +51,7 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
     @FindBy(xpath = "//button[@id='email_quote']")
     private WebElement buttonEmailEstimate;
     @FindBy(xpath = "//input[@type='email']")
-    private WebElement buttonInputMail;
+    private WebElement fieldForInputGenerateMail;
     @FindBy(xpath = "//button[@aria-label='Send Email']")
     private WebElement buttonSendEmail;
 
@@ -125,8 +125,8 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
     }
 
     public PageWithSettingsOfCalculator insertGeneratingMailInFieldInputMail() {
-        waitForVisibility(buttonInputMail);
-        buttonInputMail.sendKeys(GenerateMailPage.generateMail);
+        waitForVisibility(fieldForInputGenerateMail);
+        fieldForInputGenerateMail.sendKeys(GenerateMailPage.generateMail);
         return this;
     }
 
