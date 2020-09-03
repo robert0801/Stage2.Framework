@@ -8,6 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import util.WebelementUnils;
+
+import static util.WebelementUnils.waitForVisibility;
 
 
 public class GenerateMailPage extends AbstractForCloudGoogle {
@@ -51,14 +54,14 @@ public class GenerateMailPage extends AbstractForCloudGoogle {
     public GenerateMailPage clickToOpenMail() {
         driver.switchTo().window(PageWithSettingsOfCalculator.tab.get(1));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", fieldWithSentMail);
-        waitForVisibility(mailPage);
+        WebelementUnils.waitForVisibility(driver, mailPage);
         mailPage.click();
         logger.info("The email was success open");
         return this;
     }
 
     public void getPriceOnGenerateMailPage() {
-        waitForVisibility(priceCalculatorOnMailPage);
+        waitForVisibility(driver, priceCalculatorOnMailPage);
         String s = priceCalculatorOnMailPage
                 .getText()
                 .replace("USD ", "")

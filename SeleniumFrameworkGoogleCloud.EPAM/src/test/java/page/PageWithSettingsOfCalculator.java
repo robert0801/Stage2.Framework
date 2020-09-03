@@ -13,6 +13,8 @@ import settingscalc.Calculator;
 
 import java.util.ArrayList;
 
+import static util.WebelementUnils.*;
+
 public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
 
     public static Double priceOnCalculatorPage;
@@ -60,59 +62,57 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
     }
 
     public PageWithSettingsOfCalculator settingValueNumberOfInstances(Calculator calculator) {
-        driver.switchTo().frame(0);
-        driver.switchTo().frame("myFrame");
-        waitForVisibility(numberOfInstances);
+        getToSomeFrame(driver, "myFrame");
+        waitForVisibility(driver, numberOfInstances);
         numberOfInstances.sendKeys(String.valueOf(calculator.getNumberOfInstance()));
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueOperatingSystem(Calculator calculator) {
-        clickByCheckOption(listOperatingSystem, typeOperatingSystem, calculator.getOperatingSystem());
+        clickByCheckOption(driver, listOperatingSystem, typeOperatingSystem, calculator.getOperatingSystem());
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueMachineClass(Calculator calculator) {
-        clickByCheckOption(listMachineClass, typeMachineClass, calculator.getMachineClass());
+        clickByCheckOption(driver, listMachineClass, typeMachineClass, calculator.getMachineClass());
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueMachineType(Calculator calculator) {
-        clickByCheckOption(listMachineType, typeMachineType, calculator.getTypeMachineType());
+        clickByCheckOption(driver, listMachineType, typeMachineType, calculator.getTypeMachineType());
         return this;
     }
 
     public PageWithSettingsOfCalculator settingAddGPU(Calculator calculator) {
-        click(addGPU);
-        clickByCheckOption(listNumberOfGPU, typeNumberOfGPU, String.valueOf(calculator.getNumberOfGPU()));
-        clickByCheckOption(listGPUType, typeGPUType, calculator.getTypeGPUType());
+        click(driver, addGPU);
+        clickByCheckOption(driver, listNumberOfGPU, typeNumberOfGPU, String.valueOf(calculator.getNumberOfGPU()));
+        clickByCheckOption(driver, listGPUType, typeGPUType, calculator.getTypeGPUType());
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueLocalSSD(Calculator calculator) {
-        clickByCheckOption(listLocalSSD, typeLocalSSD, calculator.getLocalSSD());
+        clickByCheckOption(driver, listLocalSSD, typeLocalSSD, calculator.getLocalSSD());
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueDatacenterLocation(Calculator calculator) {
-        clickByCheckOption(listDatacenterLocation, typeDatacenterLocation, calculator.getDatacenterLocation());
+        clickByCheckOption(driver, listDatacenterLocation, typeDatacenterLocation, calculator.getDatacenterLocation());
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueCommittedUsage(Calculator calculator) {
-        clickByCheckOption(listCommittedUsage, typeCommittedUsage, String.valueOf(calculator.getCommittedUsage()));
+        clickByCheckOption(driver, listCommittedUsage, typeCommittedUsage, String.valueOf(calculator.getCommittedUsage()));
         return this;
     }
 
     public PageWithSettingsOfCalculator clickOnTheButtonAddToEstimate() {
-        click(buttonAddToEstimate);
+        click(driver, buttonAddToEstimate);
         return this;
     }
 
     public PageWithSettingsOfCalculator clickOnButtonEmailEstimate() {
-        driver.switchTo().frame(0);
-        driver.switchTo().frame("myFrame");
-        click(buttonEmailEstimate);
+        getToSomeFrame(driver, "myFrame");
+        click(driver, buttonEmailEstimate);
         logger.info("Create calculator on page with some settings");
         return this;
     }
@@ -125,21 +125,20 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
     }
 
     public PageWithSettingsOfCalculator insertGeneratingMailInFieldInputMail() {
-        waitForVisibility(fieldForInputGenerateMail);
+        waitForVisibility(driver, fieldForInputGenerateMail);
         fieldForInputGenerateMail.sendKeys(GenerateMailPage.generateMail);
         return this;
     }
 
     public PageWithSettingsOfCalculator clickOnTheButtonSendEmail() {
-        click(buttonSendEmail);
+        click(driver, buttonSendEmail);
         logger.info("The settings of calculator was success send on generate email");
         return this;
     }
 
     public void getPriceInCalculatorPage() {
         driver.switchTo().window(tab.get(0));
-        driver.switchTo().frame(0);
-        driver.switchTo().frame("myFrame");
+        getToSomeFrame(driver, "myFrame");
         WebElement priceCalculator = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//md-card-content[@id='resultBlock']//div/b[contains(text(),Total)]")));
         String s = priceCalculator
