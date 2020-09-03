@@ -115,8 +115,6 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle{
 
     public void getPriceInCalculatorPage(){
         Selenide.switchTo().window(tab.get(0));
-        Selenide.switchTo().frame(0);
-        Selenide.switchTo().frame("myFrame");
         SelenideElement priceCalculator = $(By.xpath("//md-card-content[@id='resultBlock']//div/b[contains(text(),Total)]"))
                 .waitUntil(visible, 10000);
         String s = priceCalculator

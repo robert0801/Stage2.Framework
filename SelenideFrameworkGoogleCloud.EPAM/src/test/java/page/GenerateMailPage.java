@@ -22,6 +22,7 @@ public class GenerateMailPage extends AbstractForCloudGoogle{
     private By mailAddress = By.xpath("//input[@id='mail']");
     private By mailPage = By.xpath("//a[@class='viewLink title-subject'][text()]");
     private By fieldWithCostOnGenerateMailPage = By.xpath("//h3[contains(text(), 'USD')]");
+    private By fieldWithSentMail = By.xpath("//div[@class='inbox-area maillist']");
 
     public GenerateMailPage getToMailPage(){
         Selenide.open("https://10minemail.com/ru/");
@@ -41,7 +42,7 @@ public class GenerateMailPage extends AbstractForCloudGoogle{
         switchTo().window(PageWithSettingsOfCalculator.tab.get(1));
         $(mailPage).waitWhile(empty, 30000);
         JavascriptExecutor executor = (JavascriptExecutor) WebDriverRunner.getWebDriver();
-        executor.executeScript("arguments[0].scrollIntoView(true);", $(mailPage));
+        executor.executeScript("arguments[0].scrollIntoView(true);", $(fieldWithSentMail));
         $(mailPage).click();
         logger.info("The email was success open");
         return this;

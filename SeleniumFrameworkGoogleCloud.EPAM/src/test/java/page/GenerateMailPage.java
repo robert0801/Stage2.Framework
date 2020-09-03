@@ -24,6 +24,8 @@ public class GenerateMailPage extends AbstractForCloudGoogle {
     private WebElement countOfSentMail;
     @FindBy(xpath = "//a[@class='viewLink title-subject'][text()]")
     private WebElement mailPage;
+    @FindBy(xpath = "//div[@class='inbox-area maillist']")
+    private WebElement fieldWithSentMail;
 
     public GenerateMailPage(WebDriver driver) {
         super(driver);
@@ -48,8 +50,8 @@ public class GenerateMailPage extends AbstractForCloudGoogle {
 
     public GenerateMailPage clickToOpenMail() {
         driver.switchTo().window(PageWithSettingsOfCalculator.tab.get(1));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", fieldWithSentMail);
         waitForVisibility(mailPage);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", mailPage);
         mailPage.click();
         logger.info("The email was success open");
         return this;
