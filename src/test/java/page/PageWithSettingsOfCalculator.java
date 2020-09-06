@@ -146,8 +146,6 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
     public void getPriceInCalculatorPage() {
         driver.switchTo().window(tab.get(0));
         switchToFrame(driver, "myFrame");
-//        WebElement priceCalculator = new WebDriverWait(driver, 10)
-//                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//md-card-content[@id='resultBlock']//div/b[contains(text(),Total)]")));
         String s = priceCalculator
                 .getText()
                 .replace("1 month", "")
