@@ -15,8 +15,9 @@ public class Calculator {
     private String datacenterLocation;
     private String committedUsage;
 
-    public Calculator(String numberOfInstance, String operatingSystem, String machineClass, String typeMachineType,
-                      String numberOfGPU, String typeGPUType, String localSSD, String datacenterLocation, String committedUsage) {
+    public Calculator(String numberOfInstance, String operatingSystem, String machineClass,
+                      String typeMachineType, String numberOfGPU, String typeGPUType,
+                      String localSSD, String datacenterLocation, String committedUsage) {
         this.numberOfInstance = numberOfInstance;
         this.operatingSystem = operatingSystem;
         this.machineClass = machineClass;

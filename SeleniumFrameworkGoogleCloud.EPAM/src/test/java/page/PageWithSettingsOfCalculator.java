@@ -1,7 +1,5 @@
 package page;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,16 +8,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import settingscalc.Calculator;
-
 import java.util.ArrayList;
-
 import static util.WebelementUnils.*;
 
 public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
 
     public static Double priceOnCalculatorPage;
     static ArrayList<String> tab;
-    private final Logger logger = LogManager.getRootLogger();
     @FindBy(xpath = "//input[contains(@ng-model,'quantity')]")
     private WebElement numberOfInstances;
     @FindBy(xpath = "//label[text()='Operating System / Software']/../md-select")
@@ -56,30 +51,36 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
     private WebElement fieldForInputGenerateMail;
     @FindBy(xpath = "//button[@aria-label='Send Email']")
     private WebElement buttonSendEmail;
+    @FindBy(xpath = "//md-card-content[@id='resultBlock']//div/b[contains(text(),Total)]")
+    private WebElement priceCalculator;
 
     public PageWithSettingsOfCalculator(WebDriver driver) {
         super(driver);
     }
 
     public PageWithSettingsOfCalculator settingValueNumberOfInstances(Calculator calculator) {
-        getToSomeFrame(driver, "myFrame");
+        switchToFrame(driver, "myFrame");
         waitForVisibility(driver, numberOfInstances);
         numberOfInstances.sendKeys(String.valueOf(calculator.getNumberOfInstance()));
+        logger.info("The number of instances has been successfully chose.");
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueOperatingSystem(Calculator calculator) {
         clickByCheckOption(driver, listOperatingSystem, typeOperatingSystem, calculator.getOperatingSystem());
+        logger.info("The operating system has been successfully chose.");
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueMachineClass(Calculator calculator) {
         clickByCheckOption(driver, listMachineClass, typeMachineClass, calculator.getMachineClass());
+        logger.info("The machine class has been successfully chose.");
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueMachineType(Calculator calculator) {
         clickByCheckOption(driver, listMachineType, typeMachineType, calculator.getTypeMachineType());
+        logger.info("The machine type has been successfully chose.");
         return this;
     }
 
@@ -87,33 +88,38 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
         click(driver, addGPU);
         clickByCheckOption(driver, listNumberOfGPU, typeNumberOfGPU, String.valueOf(calculator.getNumberOfGPU()));
         clickByCheckOption(driver, listGPUType, typeGPUType, calculator.getTypeGPUType());
+        logger.info("The option, that describe GPU, has been successfully chose.");
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueLocalSSD(Calculator calculator) {
         clickByCheckOption(driver, listLocalSSD, typeLocalSSD, calculator.getLocalSSD());
+        logger.info("The local SSD has been successfully chose.");
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueDatacenterLocation(Calculator calculator) {
         clickByCheckOption(driver, listDatacenterLocation, typeDatacenterLocation, calculator.getDatacenterLocation());
+        logger.info("The datacenter location has been successfully chose.");
         return this;
     }
 
     public PageWithSettingsOfCalculator settingValueCommittedUsage(Calculator calculator) {
         clickByCheckOption(driver, listCommittedUsage, typeCommittedUsage, String.valueOf(calculator.getCommittedUsage()));
+        logger.info("The committed usage has been successfully chose.");
         return this;
     }
 
     public PageWithSettingsOfCalculator clickOnTheButtonAddToEstimate() {
         click(driver, buttonAddToEstimate);
+        logger.info("The button \"Add To Estimate\" has been successfully clicked.");
         return this;
     }
 
     public PageWithSettingsOfCalculator clickOnButtonEmailEstimate() {
-        getToSomeFrame(driver, "myFrame");
+        switchToFrame(driver, "myFrame");
         click(driver, buttonEmailEstimate);
-        logger.info("Create calculator on page with some settings");
+        logger.info("The calculator was successfully created.");
         return this;
     }
 
@@ -121,6 +127,7 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
         ((JavascriptExecutor) driver).executeScript("window.open()");
         tab = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tab.get(1));
+        logger.info("New TAB was successfully created. Window switched.");
         return this;
     }
 
@@ -138,13 +145,14 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
 
     public void getPriceInCalculatorPage() {
         driver.switchTo().window(tab.get(0));
-        getToSomeFrame(driver, "myFrame");
-        WebElement priceCalculator = new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//md-card-content[@id='resultBlock']//div/b[contains(text(),Total)]")));
+        switchToFrame(driver, "myFrame");
+//        WebElement priceCalculator = new WebDriverWait(driver, 10)
+//                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//md-card-content[@id='resultBlock']//div/b[contains(text(),Total)]")));
         String s = priceCalculator
                 .getText()
                 .replace("1 month", "")
                 .replaceAll("[^0-9.]", "");
         priceOnCalculatorPage = Double.parseDouble(s);
+        logger.info("The price on calculator successfully get.");
     }
 }

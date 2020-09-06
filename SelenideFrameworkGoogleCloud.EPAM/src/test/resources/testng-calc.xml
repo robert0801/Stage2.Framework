@@ -1,9 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-
-<suite name="Price Comparison" verbose="1" >
-    <test name="Price Comparison"   >
-        <classes>
-            <class name="test.PriceComparisonTest" />
-        </classes>
-    </test>
-</suite>

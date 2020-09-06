@@ -18,8 +18,6 @@ public class CommonConditions {
     public void setUp() {
         driver = DriverSingleton.getDriver();
         PageFactory.initElements(driver, this);
-        Dimension dimension = new Dimension(1920, 1000);
-        //driver.manage().window().setSize(dimension);
         driver.manage().window().maximize();
     }
 

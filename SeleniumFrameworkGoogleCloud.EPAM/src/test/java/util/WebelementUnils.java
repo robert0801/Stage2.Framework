@@ -7,9 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 public class WebelementUnils {
-    static int countOfSwitchingInFrame = 0;
+    private static int countOfSwitchingInFrame = 0;
 
     public static WebElement waitForVisibility(WebDriver driver, WebElement element) {
         new WebDriverWait(driver, 30)
@@ -22,28 +21,28 @@ public class WebelementUnils {
         element.sendKeys(Keys.ENTER);
     }
 
-    public static void clickByCheckOption(WebDriver driver, WebElement listWithOptions, String listOfOption, String option) {
+    public static void clickByCheckOption(WebDriver driver, WebElement listWithOptions,
+                                          String listOfOption, String option) {
         click(driver, listWithOptions);
         WebElement element = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(listOfOption, option))));
         element.sendKeys(Keys.ENTER);
     }
 
-    public static void getToSomeFrame(WebDriver driver, String nameFrame) {
+    public static void switchToFrame(WebDriver driver, String nameFrame) {
         try {
             if (countOfSwitchingInFrame < 10) {
-                System.out.println(countOfSwitchingInFrame);
                 driver.switchTo().defaultContent();
                 driver.switchTo().frame(0);
                 new WebDriverWait(driver, 10)
                         .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(nameFrame));
             }
             else {
-                throw new Exception();
+                throw new Exception("Trouble with switching in frame.");
             }
         } catch (Exception e) {
             countOfSwitchingInFrame++;
-            getToSomeFrame(driver, nameFrame);
+            switchToFrame(driver, nameFrame);
         }
     }
 

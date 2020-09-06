@@ -4,7 +4,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import static util.WebelementUnils.click;
 
 public class CloudGoogleComPage extends AbstractForCloudGoogle {
@@ -23,6 +22,7 @@ public class CloudGoogleComPage extends AbstractForCloudGoogle {
         searchLine.sendKeys("Google Cloud Platform Pricing Calculator");
         searchLine.sendKeys(Keys.ENTER);
         click(driver, linkCloudGooglePage);
+        logger.info("The page with the calculator has been successfully opened.");
         return new PageWithSettingsOfCalculator(driver);
     }
 }

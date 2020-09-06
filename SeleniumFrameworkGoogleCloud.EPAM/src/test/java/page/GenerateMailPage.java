@@ -46,7 +46,7 @@ public class GenerateMailPage extends AbstractForCloudGoogle {
             generateMail = mailAddress.getAttribute("value");
         }
         driver.switchTo().window(PageWithSettingsOfCalculator.tab.get(0));
-        logger.info("Email is generate succesfully.");
+        logger.info("Email successfully generate.");
         return this;
 
     }
