@@ -8,7 +8,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import settingscalc.Calculator;
+
 import java.util.ArrayList;
+
 import static util.WebelementUnils.*;
 
 public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {

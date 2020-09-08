@@ -7,8 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 
 abstract public class AbstractForCloudGoogle {
 
-    protected WebDriver driver;
     protected final Logger logger = LogManager.getRootLogger();
+    protected WebDriver driver;
 
     public AbstractForCloudGoogle(WebDriver driver) {
         this.driver = driver;

@@ -36,8 +36,7 @@ public class WebelementUnils {
                 driver.switchTo().frame(0);
                 new WebDriverWait(driver, 10)
                         .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(nameFrame));
-            }
-            else {
+            } else {
                 throw new Exception("Trouble with switching in frame.");
             }
         } catch (Exception e) {
