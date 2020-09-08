@@ -155,4 +155,16 @@ public class PageWithSettingsOfCalculator extends AbstractForCloudGoogle {
         priceOnCalculatorPage = Double.parseDouble(s);
         logger.info("The price on calculator successfully get.");
     }
+
+    public PageWithSettingsOfCalculator createCalculator(Calculator calculator){
+        settingValueNumberOfInstances(calculator);
+        settingValueOperatingSystem(calculator);
+        settingValueMachineClass(calculator);
+        settingValueMachineType(calculator);
+        settingAddGPU(calculator);
+        settingValueLocalSSD(calculator);
+        settingValueDatacenterLocation(calculator);
+        settingValueCommittedUsage(calculator);
+        return this;
+    }
 }

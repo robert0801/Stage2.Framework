@@ -14,14 +14,7 @@ public class PriceComparisonTest extends CommonConditions {
         Calculator testCalculator = CalculatorCreator.createCalculatorWithSomeProperty();
         PageWithSettingsOfCalculator cloudPage = new CloudGoogleComPage(driver)
                 .getToStartPageWithSearchingLine()
-                .settingValueNumberOfInstances(testCalculator)
-                .settingValueOperatingSystem(testCalculator)
-                .settingValueMachineClass(testCalculator)
-                .settingValueMachineType(testCalculator)
-                .settingAddGPU(testCalculator)
-                .settingValueLocalSSD(testCalculator)
-                .settingValueDatacenterLocation(testCalculator)
-                .settingValueCommittedUsage(testCalculator)
+                .createCalculator(testCalculator)
                 .clickOnTheButtonAddToEstimate()
                 .createNewTab();
 
